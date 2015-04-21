@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  Blog Reader
-//
-//  Created by Rob Percival on 15/08/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
+
 
 import UIKit
 import CoreData

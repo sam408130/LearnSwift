@@ -1,10 +1,4 @@
-//
-//  MasterViewController.swift
-//  test2
-//
-//  Created by Rob Percival on 14/08/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
+
 
 import UIKit
 import CoreData
