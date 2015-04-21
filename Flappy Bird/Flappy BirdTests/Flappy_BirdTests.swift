@@ -1,10 +1,3 @@
-//
-//  Flappy_BirdTests.swift
-//  Flappy BirdTests
-//
-//  Created by Rob Percival on 22/08/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
 
 import UIKit
 import XCTest
