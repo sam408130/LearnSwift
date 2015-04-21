@@ -1,10 +1,4 @@
-//
-//  AudioTests.swift
-//  AudioTests
-//
-//  Created by Rob Percival on 13/03/2015.
-//  Copyright (c) 2015 Appfish. All rights reserved.
-//
+
 
 import UIKit
 import XCTest
