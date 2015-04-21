@@ -42,11 +42,11 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
    }
 }*/
             let str = NSString(format:"https://graph.facebook.com/%@/picture?type=large", user.id)
-            let url = NSURL.URLWithString(str);
+            let url = NSURL.URLWithString(str as! String);
             var err: NSError? = NSError()
-            var imageData :NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+            var imageData :NSData = NSData.dataWithContentsOfURL(url!,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)!
             var bgImage = UIImage(data:imageData)
-            setProfileImage(bgImage)
+            setProfileImage(bgImage!)
         }
     }
 
@@ -76,8 +76,8 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
            
             user["dobstring"] = self.dateOfBirth
             
-            var button1 = self.view.viewWithTag(1) as UIButton
-            var button2 = self.view.viewWithTag(2) as UIButton
+            var button1 = self.view.viewWithTag(1) as! UIButton
+            var button2 = self.view.viewWithTag(2) as! UIButton
             
             user["gender"] = button1.selected ? "male" : "female"
             

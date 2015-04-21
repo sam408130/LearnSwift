@@ -31,7 +31,7 @@ class DraggableView: UIView, UIGestureRecognizerDelegate {
         super.init(frame: frame)
         // Initialization code
         
-        self.delegate   = (delegate as ProfileSelectorViewController)
+        self.delegate   = (delegate as! ProfileSelectorViewController)
         
         self.profileImagView.frame = self.bounds
         
@@ -62,15 +62,15 @@ class DraggableView: UIView, UIGestureRecognizerDelegate {
 
     func setUser(newUser:PFUser)
     {
-        self.user   = newUser
+        self.user = newUser
     }
     
     func update() {
         let user:PFUser = self.user! as PFUser
         
-        let dateOfBirth = self.calculateAge(user["dobstring"] as String)
+        let dateOfBirth = self.calculateAge(user["dobstring"] as! String)
         
-        let location:PFGeoPoint = user["location"] as PFGeoPoint
+        let location:PFGeoPoint = user["location"] as! PFGeoPoint
         var coreLocationPoint:CLLocation    = CLLocation(latitude: location.latitude, longitude: location.longitude)
         
         var distance = NSNumber(int: -1)
@@ -80,7 +80,7 @@ class DraggableView: UIView, UIGestureRecognizerDelegate {
         {
             distanceString  = NSString(format: "%d Km", Int(distance)/1000)
         }
-        self.setProfileDescription(Name: user.username + ", \(dateOfBirth)", andPlace: "", andDistance:distanceString)
+        self.setProfileDescription(Name: user.username + ", \(dateOfBirth)", andPlace: "", andDistance:distanceString as String)
         
         var query = PFQuery(className: "UserPhoto")
         query.whereKey("user", equalTo: user)
@@ -91,8 +91,8 @@ class DraggableView: UIView, UIGestureRecognizerDelegate {
             
             if(objects.count != 0)
             {
-                let object = objects[objects.count - 1] as PFObject
-                let theImage = object["imageData"] as PFFile
+                let object = objects[objects.count - 1] as! PFObject
+                let theImage = object["imageData"] as! PFFile
                 
                 let imageData:NSData    = theImage.getData()
                 let image               = UIImage(data: imageData)
@@ -109,12 +109,12 @@ class DraggableView: UIView, UIGestureRecognizerDelegate {
                     println("reverse geodcode fail: \(error.localizedDescription)")
                 }
                 else {
-                    let pm = placemarks as [CLPlacemark]
+                    let pm = placemarks as! [CLPlacemark]
                     if pm.count > 0
                     {
-                        let placeMark = placemarks[0] as CLPlacemark
+                        let placeMark = placemarks[0] as! CLPlacemark
                         
-                        self.setProfileDescription(Name: user.username + ", \(dateOfBirth)", andPlace: placeMark.locality, andDistance:distanceString)
+                        self.setProfileDescription(Name: user.username + ", \(dateOfBirth)", andPlace: placeMark.locality, andDistance:distanceString as String)
                     }
                 }
                 MBProgressHUD.hideHUDForView(self, animated:false)
