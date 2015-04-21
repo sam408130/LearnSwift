@@ -1,10 +1,3 @@
-//
-//  UserTableViewController.swift
-//  Instagram
-//
-//  Created by Rob Percival on 05/09/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
 
 import UIKit
 

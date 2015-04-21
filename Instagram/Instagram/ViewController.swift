@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  Instagram
-//
-//  Created by Rob Percival on 01/09/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
 
 import UIKit
 
