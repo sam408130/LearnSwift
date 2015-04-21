@@ -1,10 +1,3 @@
-//
-//  Is_It_PrimeTests.swift
-//  Is It PrimeTests
-//
-//  Created by Rob Percival on 19/12/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
 
 import UIKit
 import XCTest
