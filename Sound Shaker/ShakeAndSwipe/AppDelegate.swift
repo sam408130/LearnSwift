@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Swipes And Shakes
-//
-//  Created by Rob Percival on 16/03/2015.
-//  Copyright (c) 2015 Appfish. All rights reserved.
-//
 
 import UIKit
 
