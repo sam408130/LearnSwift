@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Cat Years
 //
-//  Created by Rob Percival on 18/12/2014.
+//  Created by sam408130 on 18/12/2014.
 //  Copyright (c) 2014 Appfish. All rights reserved.
 //
 

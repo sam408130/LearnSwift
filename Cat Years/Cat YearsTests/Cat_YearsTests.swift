@@ -1,11 +1,3 @@
-//
-//  Cat_YearsTests.swift
-//  Cat YearsTests
-//
-//  Created by Rob Percival on 18/12/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
-
 import UIKit
 import XCTest
 
