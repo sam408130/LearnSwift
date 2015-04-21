@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  How Many Fingers
-//
-//  Created by Rob Percival on 01/07/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {

@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  How Many Fingers
-//
-//  Created by Rob Percival on 01/07/2014.
-//  Copyright (c) 2014 Appfish. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
@@ -13,9 +5,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
 
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
-        // Override point for customization after application launch.
+    
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         return true
     }
 
