@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  Whats The Weather
-//
-//  Created by Rob Percival on 16/01/2015.
-//  Copyright (c) 2015 Appfish. All rights reserved.
-//
+
 
 import UIKit
 
