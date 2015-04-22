@@ -113,7 +113,7 @@ class SignUpController: UIViewController, UITextFieldDelegate
         else
         {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let imageUploaderView = storyboard.instantiateViewControllerWithIdentifier("ImageSelectorViewController") as ImageSelectorViewController
+            let imageUploaderView = storyboard.instantiateViewControllerWithIdentifier("ImageSelectorViewController") as! ImageSelectorViewController
             imageUploaderView.setUserName(self.userNameTextfield.text, password: self.passwordTextfield.text, Email: self.emailAddressTextfield.text, andDateOfBirth: self.dateOfBirthButton.titleForState(UIControlState.Normal)!)
             self.navigationController!.pushViewController(imageUploaderView, animated: true)
         }
@@ -126,7 +126,7 @@ class SignUpController: UIViewController, UITextFieldDelegate
         */
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool
+    func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         

@@ -41,10 +41,12 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
       // obj is not a String
    }
 }*/
-            let str = NSString(format:"https://graph.facebook.com/%@/picture?type=large", user.id)
-            let url = NSURL.URLWithString(str as! String);
+            let str = NSString(format:"https://graph.facebook.com/%@/picture?type=large", user.id) as! String
+            let url = NSURL(string: str)
             var err: NSError? = NSError()
-            var imageData :NSData = NSData.dataWithContentsOfURL(url!,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)!
+            //var imageData :NSData = NSData.dataWithContentsOfURL(url!,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)!
+            
+            var imageData = NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)!
             var bgImage = UIImage(data:imageData)
             setProfileImage(bgImage!)
         }
@@ -81,8 +83,8 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
             
             user["gender"] = button1.selected ? "male" : "female"
             
-            button1 = self.view.viewWithTag(3) as UIButton
-            button2 = self.view.viewWithTag(4) as UIButton
+            button1 = self.view.viewWithTag(3) as! UIButton
+            button2 = self.view.viewWithTag(4) as! UIButton
             
             user["interestedin"] = button1.selected ? "male" : "female"
             
@@ -100,9 +102,11 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
             }
 
             MBProgressHUD.showHUDAddedTo(self.view, animated:true)
-            user.signUpInBackgroundWithBlock {
-                
-                (succeeded: Bool!, error: NSError!) -> Void in
+            
+            
+            user.signUpInBackgroundWithBlock ({
+            
+                (succeeded: Bool, error: NSError!) -> Void in
                 if !(error != nil)
                 {
                     let imageName = self.userName + ".jpg" as String
@@ -120,9 +124,9 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
                     userPhoto["user"] = user
                     
                     
-                    userPhoto.saveInBackgroundWithBlock{
+                    userPhoto.saveInBackgroundWithBlock({
                         
-                        (succeeded:Bool!, error:NSError!) -> Void in
+                        (succeeded:Bool, error:NSError!) -> Void in
                         
                         MBProgressHUD.hideHUDForView(self.view, animated:false)
                         if !(error != nil)
@@ -136,7 +140,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
                             if let errorString = error.userInfo?["error"] as? NSString
                             {
                                 println(errorString)
-                                var alert:UIAlertView = UIAlertView(title: "Welcome!", message: errorString, delegate: nil, cancelButtonTitle: "Ok")
+                                var alert:UIAlertView = UIAlertView(title: "Welcome!", message: errorString as String, delegate: nil, cancelButtonTitle: "Ok")
                             
                                 alert.show()
                             }
@@ -146,14 +150,14 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
                                 alert.show()
                             }
                         }
-                    }
+                    })
                 }
                 else
                 {
                             if let errorString = error.userInfo?["error"] as? NSString
                             {
                                 println(errorString)
-                                var alert:UIAlertView = UIAlertView(title: "Welcome!", message: errorString, delegate: nil, cancelButtonTitle: "Ok")
+                                var alert:UIAlertView = UIAlertView(title: "Welcome!", message: errorString as String, delegate: nil, cancelButtonTitle: "Ok")
                             
                                 alert.show()
                             }
@@ -164,7 +168,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
                             }
                     MBProgressHUD.hideHUDForView(self.view, animated:false)                    
                 }
-            }
+            })
         }
     }
 
@@ -174,7 +178,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
         {
             sender.selected = true
             
-            let female = self.view.viewWithTag(2) as UIButton
+            let female = self.view.viewWithTag(2) as! UIButton
             
             female.selected = false
         }
@@ -182,7 +186,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
         {
             sender.selected = true
             
-            let male = self.view.viewWithTag(1) as UIButton
+            let male = self.view.viewWithTag(1) as! UIButton
             
             male.selected = false
         }
@@ -194,7 +198,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
         {
             sender.selected = true
             
-            let female = self.view.viewWithTag(4) as UIButton
+            let female = self.view.viewWithTag(4) as! UIButton
             
             female.selected = false
         }
@@ -202,7 +206,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
         {
             sender.selected = true
             
-            let male = self.view.viewWithTag(3) as UIButton
+            let male = self.view.viewWithTag(3) as! UIButton
             
             male.selected = false
         }
@@ -221,7 +225,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
         myActionSheet.showInView(self.view)
     }
     
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int)
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int)
     {
         var sourceType:UIImagePickerControllerSourceType = UIImagePickerControllerSourceType.Camera
         
@@ -251,16 +255,16 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         
         self.dismissViewControllerAnimated(true, completion: {
             
-            var mediatype:NSString = info[UIImagePickerControllerMediaType]! as NSString
+            var mediatype:NSString = info[UIImagePickerControllerMediaType]! as! NSString
             
             if (mediatype == "public.image")
             {
-                let originalImage = info[UIImagePickerControllerOriginalImage] as UIImage
+                let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
                 
                 print("%@",originalImage.size)
                 self.setProfileImage(originalImage);
@@ -280,12 +284,12 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
     }
     
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!)
+    func imagePickerControllerDidCancel(picker: UIImagePickerController)
     {
         picker.dismissViewControllerAnimated(true, completion: nil)
         self.selectedImage  = false
     }
-    func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int)
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
     {
         var username = self.userName
         var pwd = self.password
@@ -301,7 +305,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
                 }
                 else
                 {
-                    let loginScreen = self.navigationController!.viewControllers![0] as ViewController
+                    let loginScreen = self.navigationController!.viewControllers![0] as! ViewController
                     loginScreen.facebookLogin   = true
                     self.navigationController!.popToRootViewControllerAnimated(true)
                 }
@@ -310,7 +314,7 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
             {
                 if let errorString = error.userInfo?["error"] as? NSString
                 {
-                    var alert:UIAlertView = UIAlertView(title: "Error", message: errorString, delegate: nil, cancelButtonTitle: "Ok")
+                    var alert:UIAlertView = UIAlertView(title: "Error", message: errorString as String, delegate: nil, cancelButtonTitle: "Ok")
                     
                     alert.show()
                 }
@@ -325,16 +329,16 @@ class ImageSelectorViewController: UIViewController, UIAlertViewDelegate, UIActi
         
         var message = ""
         
-        var button1 = self.view.viewWithTag(1) as UIButton
-        var button2 = self.view.viewWithTag(2) as UIButton
+        var button1 = self.view.viewWithTag(1) as! UIButton
+        var button2 = self.view.viewWithTag(2) as! UIButton
         
         if (!button1.selected && !button2.selected)
         {
             message = "Please select your gender"
         }
         
-        button1 = self.view.viewWithTag(3) as UIButton
-        button2 = self.view.viewWithTag(4) as UIButton
+        button1 = self.view.viewWithTag(3) as! UIButton
+        button2 = self.view.viewWithTag(4) as! UIButton
         
         if (!button1.selected && !button2.selected)
         {

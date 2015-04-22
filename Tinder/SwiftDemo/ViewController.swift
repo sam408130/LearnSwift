@@ -101,7 +101,7 @@ class ViewController: UIViewController, FBLoginViewDelegate,PFLogInViewControlle
                     {
                         if let errorString = error.userInfo?["error"] as? NSString
                         {
-                            var alert:UIAlertView = UIAlertView(title: "Error", message: errorString, delegate: nil, cancelButtonTitle: "Ok")
+                            var alert:UIAlertView = UIAlertView(title: "Error", message: errorString as String, delegate: nil, cancelButtonTitle: "Ok")
                         
                             alert.show()
                         }
@@ -147,8 +147,8 @@ class ViewController: UIViewController, FBLoginViewDelegate,PFLogInViewControlle
                     me.startWithCompletionHandler({(NSArray my, NSError error) in*/
                     println(user)
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let imageUploaderView = storyboard.instantiateViewControllerWithIdentifier("ImageSelectorViewController") as ImageSelectorViewController
-                    var email:String? = user.objectForKey("email") as String?
+                    let imageUploaderView = storyboard.instantiateViewControllerWithIdentifier("ImageSelectorViewController") as! ImageSelectorViewController
+                    var email:String? = user.objectForKey("email") as! String?
                     var birthday:String? = user.birthday
                     if (email==nil) {
                         email = user.first_name + "@user.com"
@@ -186,7 +186,7 @@ class ViewController: UIViewController, FBLoginViewDelegate,PFLogInViewControlle
                                 MBProgressHUD.hideHUDForView(self.view, animated:false)
                                 if let errorString = error.userInfo?["error"] as? NSString
                                 {
-                                    var alert:UIAlertView = UIAlertView(title: "Error", message: errorString, delegate: nil, cancelButtonTitle: "Ok")
+                                    var alert:UIAlertView = UIAlertView(title: "Error", message: errorString as String, delegate: nil, cancelButtonTitle: "Ok")
                                     
                                     alert.show()
                                 }
@@ -221,11 +221,11 @@ class ViewController: UIViewController, FBLoginViewDelegate,PFLogInViewControlle
         
         var tabbarController = UITabBarController()
         
-        let profileSelectorViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSelectorViewController") as ProfileSelectorViewController
+        let profileSelectorViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSelectorViewController") as! ProfileSelectorViewController
         
-        let chatViewController = storyboard.instantiateViewControllerWithIdentifier("ChatViewController") as ChatViewController
+        let chatViewController = storyboard.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
         
-        let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("SettingsViewController") as SettingsViewController
+        let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
         
         let profileSelectorNavigationController = UINavigationController(rootViewController: profileSelectorViewController)
         
@@ -233,15 +233,15 @@ class ViewController: UIViewController, FBLoginViewDelegate,PFLogInViewControlle
         
         tabbarController.viewControllers = [ profileSelectorNavigationController, chatNavigationController, settingsViewController]
         
-        var tabbarItem = tabbarController.tabBar.items![0] as UITabBarItem;
+        var tabbarItem = tabbarController.tabBar.items![0] as! UITabBarItem;
         tabbarItem.image    = UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource("groups", ofType: "png")!)
         tabbarItem.title    = nil
         
-        tabbarItem = tabbarController.tabBar.items![1] as UITabBarItem;
+        tabbarItem = tabbarController.tabBar.items![1] as! UITabBarItem;
         tabbarItem.image    = UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource("chat", ofType: "png")!)
         tabbarItem.title    = nil
         
-        tabbarItem = tabbarController.tabBar.items![2] as UITabBarItem;
+        tabbarItem = tabbarController.tabBar.items![2] as! UITabBarItem;
         tabbarItem.image    = UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource("settings", ofType: "png")!)
         tabbarItem.title    = nil
         
@@ -251,7 +251,7 @@ class ViewController: UIViewController, FBLoginViewDelegate,PFLogInViewControlle
         self.presentViewController(tabbarController, animated: true, completion: nil)
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool
+    func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         

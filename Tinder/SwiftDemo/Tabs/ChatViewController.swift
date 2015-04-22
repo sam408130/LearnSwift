@@ -50,8 +50,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             {
                 if (objects.count > 0)
                 {
-                    var chatTableObject = objects[0] as PFObject
-                    self.arrayUserIds   = chatTableObject["Friends"] as NSArray
+                    var chatTableObject = objects[0] as! PFObject
+                    self.arrayUserIds   = chatTableObject["Friends"] as! NSArray
                     
                     var userQuery = PFUser.query()
                     
@@ -67,7 +67,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                             
                             for userId in self.arrayUserIds
                             {
-                                let user = self.getUserFromUserId(userId as String, arrayUsers: users)
+                                let user = self.getUserFromUserId(userId as! String, arrayUsers: users)
                                 
                                 self.arrayUserFriends.addObject(user)
                                 
@@ -79,13 +79,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                                     
                                     if(objects.count != 0)
                                     {
-                                        let object = objects[objects.count - 1] as PFObject
-                                        let theImage = object["imageData"] as PFFile
+                                        let object = objects[objects.count - 1] as! PFObject
+                                        let theImage = object["imageData"] as! PFFile
                                         
                                         let imageData:NSData    = theImage.getData()
-                                        let image               = UIImage(data: imageData)
+                                        let image               = UIImage(data: imageData)!
                                         
                                         let dictionary = NSDictionary(objects: [user.username, image], forKeys: ["username", "image"])
+                                        
+                                        
                                         
                                         self.arrayFriends.addObject(dictionary)
                                         
@@ -150,7 +152,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
             if (aUser.objectId == userID)
             {
-                requiredUser = aUser as PFUser
+                requiredUser = aUser as! PFUser
                 break
             }
         }
@@ -174,7 +176,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
         if ((indexPath.row % 2) == 0)
         {
@@ -187,10 +189,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.selectionStyle = UITableViewCellSelectionStyle.Blue
         
-        let dictionary = self.arrayFriends.objectAtIndex(indexPath.row) as NSDictionary
+        let dictionary = self.arrayFriends.objectAtIndex(indexPath.row) as! NSDictionary
    
-        let username = dictionary.objectForKey("username") as String
-        let image      = dictionary.objectForKey("image") as UIImage
+        let username = dictionary.objectForKey("username") as! String
+        let image      = dictionary.objectForKey("image") as! UIImage
         
         cell.textLabel!.text = username
         cell.imageView!.image    = image
@@ -205,21 +207,21 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
         return 54.0
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let messageController = storyboard.instantiateViewControllerWithIdentifier("MessagesViewController") as MessagesViewController
+        let messageController = storyboard.instantiateViewControllerWithIdentifier("MessagesViewController") as! MessagesViewController
         
-        let dictionary = self.arrayFriends.objectAtIndex(indexPath.row) as NSDictionary
+        let dictionary = self.arrayFriends.objectAtIndex(indexPath.row) as! NSDictionary
         
-        messageController.selectedUser  = self.arrayUserFriends.objectAtIndex(indexPath.row) as PFUser
-        messageController.profileImage  = dictionary.objectForKey("image") as UIImage
+        messageController.selectedUser  = self.arrayUserFriends.objectAtIndex(indexPath.row) as! PFUser
+        messageController.profileImage  = dictionary.objectForKey("image") as! UIImage
         
         self.navigationController!.pushViewController(messageController, animated: true)
     }

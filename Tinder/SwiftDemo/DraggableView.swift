@@ -25,7 +25,7 @@ class DraggableView: UIView, UIGestureRecognizerDelegate {
     var labelNameAndAge = UILabel()
     
     var delegate:ProfileSelectorViewController?
-    var user:PFUser?
+    var user = PFUser()
     
     init(frame: CGRect, delegate:AnyObject) {
         super.init(frame: frame)
@@ -59,17 +59,17 @@ class DraggableView: UIView, UIGestureRecognizerDelegate {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func setUser(newUser:PFUser)
-    {
-        self.user = newUser
-    }
+    
+//    func setUser(newUser:PFUser?)
+//    {
+//        self.user = newUser
+//    }
     
     func update() {
-        let user:PFUser = self.user! as PFUser
+        let user = self.user as PFUser
         
-        let dateOfBirth = self.calculateAge(user["dobstring"] as! String)
-        
+        //let dateOfBirth = self.calculateAge(user["dobstring"] as! String)
+        let dateOfBirth = "12.3"
         let location:PFGeoPoint = user["location"] as! PFGeoPoint
         var coreLocationPoint:CLLocation    = CLLocation(latitude: location.latitude, longitude: location.longitude)
         

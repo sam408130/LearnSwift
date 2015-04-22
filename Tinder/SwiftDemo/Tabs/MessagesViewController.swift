@@ -21,11 +21,11 @@ class MessagesViewController: UIViewController {
 
         self.profilePicture!.image   = profileImage
         
-        let dateOfBirth:String = self.calculateAge(selectedUser["dobstring"] as String)
-        let gender:String   = selectedUser["gender"] as String
-        let interest:String  = selectedUser["interestedin"] as String
+        let dateOfBirth:String = self.calculateAge(selectedUser["dobstring"] as! String)
+        let gender:String   = selectedUser["gender"] as! String
+        let interest:String  = selectedUser["interestedin"] as! String
         let emailID:String  = selectedUser.email as String
-        self.messages!.text  = NSString(format: "%@, %@, %@ \nInterested In: %@\nEmail ID: %@", selectedUser.username, dateOfBirth, gender, interest, emailID)
+        self.messages!.text  = NSString(format: "%@, %@, %@ \nInterested In: %@\nEmail ID: %@", selectedUser.username, dateOfBirth, gender, interest, emailID) as String
     
     }
 

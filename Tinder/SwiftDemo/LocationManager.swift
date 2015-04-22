@@ -40,7 +40,7 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
     {
         if (locations.count > 0)
         {
-            var newLocation:CLLocation = locations[0] as CLLocation
+            var newLocation:CLLocation = locations[0] as! CLLocation
             coreLocationManager.stopUpdatingLocation()
         }
         
@@ -48,7 +48,7 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
-        if (status == CLAuthorizationStatus.Authorized)
+        if (status == CLAuthorizationStatus.AuthorizedAlways)
         {
             println("autherized")
         }

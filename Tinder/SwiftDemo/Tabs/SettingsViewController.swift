@@ -53,14 +53,14 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         self.textfieldEmailAddress.text = user.email
 //        self.textfieldPassword.text     = "ddd"
         
-        let dob = user["dobstring"] as String
+        let dob = user["dobstring"] as! String
         
         self.buttonDateOfBirth.setTitle(dob, forState: UIControlState.Normal)
 
-        let gender = user["gender"] as String
+        let gender = user["gender"] as! String
         
-        var button1 = self.view.viewWithTag(1) as UIButton
-        var button2 = self.view.viewWithTag(2) as UIButton
+        var button1 = self.view.viewWithTag(1) as! UIButton
+        var button2 = self.view.viewWithTag(2) as! UIButton
         
         if (gender == "male")
         {
@@ -73,10 +73,10 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
             button2.selected    = true
         }
         
-        let interestedIn = user["interestedin"] as String
+        let interestedIn = user["interestedin"] as! String
         
-        button1 = self.view.viewWithTag(3) as UIButton
-        button2 = self.view.viewWithTag(4) as UIButton
+        button1 = self.view.viewWithTag(3) as! UIButton
+        button2 = self.view.viewWithTag(4) as! UIButton
         
         if (interestedIn == "male")
         {
@@ -98,8 +98,8 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
             
             if(objects.count != 0)
             {
-                let object = objects[objects.count - 1] as PFObject
-                let theImage = object["imageData"] as PFFile
+                let object = objects[objects.count - 1] as! PFObject
+                let theImage = object["imageData"] as! PFFile
                 println(theImage)
                 
                 if (theImage.isDataAvailable) {
@@ -178,16 +178,16 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         
         self.dismissViewControllerAnimated(true, completion: {
             
-            var mediatype:NSString = info[UIImagePickerControllerMediaType]! as NSString
+            var mediatype:NSString = info[UIImagePickerControllerMediaType]! as! NSString
             
             if (mediatype == "public.image")
             {
-                let originalImage = info[UIImagePickerControllerOriginalImage] as UIImage
+                let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
                 
                 print("%@",originalImage.size)
                 
@@ -250,7 +250,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         {
             sender.selected = true
             
-            let female = self.view.viewWithTag(2) as UIButton
+            let female = self.view.viewWithTag(2) as! UIButton
             
             female.selected = false
         }
@@ -258,7 +258,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         {
             sender.selected = true
             
-            let male = self.view.viewWithTag(1) as UIButton
+            let male = self.view.viewWithTag(1) as! UIButton
             
             male.selected = false
         }
@@ -270,7 +270,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         {
             sender.selected = true
             
-            let female = self.view.viewWithTag(4) as UIButton
+            let female = self.view.viewWithTag(4) as! UIButton
             
             female.selected = false
         }
@@ -278,7 +278,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         {
             sender.selected = true
             
-            let male = self.view.viewWithTag(3) as UIButton
+            let male = self.view.viewWithTag(3) as! UIButton
             
             male.selected = false
         }
@@ -299,13 +299,13 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
             let dateOfBirth = self.buttonDateOfBirth.titleForState(UIControlState.Normal)
             user["dobstring"] = dateOfBirth
             
-            var button1 = self.view.viewWithTag(1) as UIButton
-            var button2 = self.view.viewWithTag(2) as UIButton
+            var button1 = self.view.viewWithTag(1) as! UIButton
+            var button2 = self.view.viewWithTag(2) as! UIButton
             
             user["gender"] = button1.selected ? "male" : "female"
             
-            button1 = self.view.viewWithTag(3) as UIButton
-            button2 = self.view.viewWithTag(4) as UIButton
+            button1 = self.view.viewWithTag(3) as! UIButton
+            button2 = self.view.viewWithTag(4) as! UIButton
             
             user["interestedin"] = button1.selected ? "male" : "female"
             
@@ -332,9 +332,9 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
                     
                         userPhoto["user"] = user
                     
-                        userPhoto.saveInBackgroundWithBlock{
+                        userPhoto.saveInBackgroundWithBlock({
                         
-                        (succeeded:Bool!, error:NSError!) -> Void in
+                        (succeeded:Bool, error:NSError!) -> Void in
                         
                         if (error != nil)
                         {
@@ -354,7 +354,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
 
                         sender.enabled  = true
                         MBProgressHUD.hideHUDForView(self.view, animated:false)
-                    }
+                    })
                     
                     self.updatedProfilePicture = false
                     }
@@ -484,16 +484,16 @@ else
         
         var message = ""
         
-        var button1 = self.view.viewWithTag(1) as UIButton
-        var button2 = self.view.viewWithTag(2) as UIButton
+        var button1 = self.view.viewWithTag(1) as! UIButton
+        var button2 = self.view.viewWithTag(2) as! UIButton
         
         if (!button1.selected && !button2.selected)
         {
             message = "Please select your gender"
         }
         
-        button1 = self.view.viewWithTag(3) as UIButton
-        button2 = self.view.viewWithTag(4) as UIButton
+        button1 = self.view.viewWithTag(3) as! UIButton
+        button2 = self.view.viewWithTag(4) as! UIButton
         
         if (!button1.selected && !button2.selected)
         {

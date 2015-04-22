@@ -98,11 +98,11 @@ class ProfileSelectorViewController: UIViewController {
                             {
                                 for var i = self.arrayUsers.count - 1; i >= 0 ; i--
                                 {
-                                    let user = self.arrayUsers[i] as PFUser
-                                    println("loop1: "+(user["username"] as NSString))
+                                    let user = self.arrayUsers[i] as! PFUser
+                                    println("loop1: "+((user["username"] as! NSString) as String))
                                     
                                     var viewDraggable = DraggableView(frame: CGRectMake(20.0, 96.0, 280.0, 280.0), delegate: self) as DraggableView
-                                    viewDraggable.setUser(user)
+                                    //viewDraggable.setUser(user)
                                     viewDraggable.update()
                                     viewDraggable.backgroundColor = UIColor.blackColor()
                                     self.view.addSubview(viewDraggable)
@@ -137,7 +137,7 @@ class ProfileSelectorViewController: UIViewController {
                 {
                     for user in objects
                     {
-                        self.arrayLikedUsers.addObjectsFromArray(user["LikedUsers"] as NSArray)
+                        self.arrayLikedUsers.addObjectsFromArray(user["LikedUsers"] as! NSArray as [AnyObject])
                     }
                 }
             }
@@ -147,16 +147,16 @@ class ProfileSelectorViewController: UIViewController {
     
     func findMatchesWhichAreNotConsideredYet()
     {
-        let object = self.arrayProfilesConsidered[0] as PFObject
+        let object = self.arrayProfilesConsidered[0] as! PFObject
         
-        let arrayConsideredUsers    = object["consideredUsers"] as NSArray
+        let arrayConsideredUsers    = object["consideredUsers"] as! NSArray
         for cUser in arrayConsideredUsers
         {
             for uUser in self.arrayUsers
             {
                 let userId: AnyObject = cUser
                 
-                if (uUser.objectId == userId as NSString)
+                if (uUser.objectId == userId as? NSString)
                 {
                     self.arrayUsers.removeObject(uUser)
                 }
@@ -166,7 +166,7 @@ class ProfileSelectorViewController: UIViewController {
     
     func filterByDistance()
     {
-        var arrayDictionaries = [] as Array
+        var arrayDictionaries = [AnyObject]()
         for user in self.arrayUsers
         {
             var distance = NSNumber(int: -1)
@@ -200,9 +200,9 @@ class ProfileSelectorViewController: UIViewController {
         {
             for var j = i+1; j < n ; j++
             {
-                var firstDictionary = array.objectAtIndex(i) as NSDictionary
-                var secondDictionary = array.objectAtIndex(j) as NSDictionary
-                if (Int(secondDictionary["distance"] as NSNumber) < Int(firstDictionary["distance"] as NSNumber))
+                var firstDictionary = array.objectAtIndex(i) as! NSDictionary
+                var secondDictionary = array.objectAtIndex(j) as! NSDictionary
+                if (Int(secondDictionary["distance"] as! NSNumber) < Int(firstDictionary["distance"] as! NSNumber))
                 {
                     var temp = firstDictionary
                     
@@ -231,7 +231,7 @@ class ProfileSelectorViewController: UIViewController {
         self.markILikeThatUser(viewDraggable)
         self.markUserAsConsidered(viewDraggable)
 
-        let user = viewDraggable.user! as PFUser
+        let user = viewDraggable.user as PFUser
         let objectId    = user.objectId
 
         self.checkIBelongsToUsersLikeList(objectId)
@@ -259,7 +259,7 @@ class ProfileSelectorViewController: UIViewController {
                 
                 if !(error != nil)
                 {
-                    let user:PFUser = view.user!
+                    let user:PFUser = view.user
                     let objectId    = user.objectId
                 
                     object.addObject(objectId, forKey: "consideredUsers")
@@ -269,7 +269,7 @@ class ProfileSelectorViewController: UIViewController {
                 {
                     let profileConsidered = PFObject(className: "ProfileConsidered")
                     profileConsidered["userID"]        = PFUser.currentUser().objectId
-                    let user = view.user! as PFUser
+                    let user = view.user as PFUser
                     let objectId    = user.objectId
                     profileConsidered.addUniqueObjectsFromArray([objectId], forKey:"consideredUsers")
                     
@@ -284,7 +284,7 @@ class ProfileSelectorViewController: UIViewController {
     func markILikeThatUser(view:DraggableView)
     {
 
-        let user = view.user! as PFUser
+        let user = view.user as PFUser
         let objectId    = user.objectId
         
         var queryForLikedUsers = PFQuery(className:"LikedUsers")
@@ -315,7 +315,7 @@ class ProfileSelectorViewController: UIViewController {
     {
         if (self.arrayDraggableViews.count > 0)
         {
-            let draggableView = self.arrayDraggableViews.lastObject as DraggableView
+            let draggableView = self.arrayDraggableViews.lastObject as! DraggableView
             
             if (sender.tag == 1)
             {
