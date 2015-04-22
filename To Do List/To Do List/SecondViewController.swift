@@ -1,10 +1,3 @@
-//
-//  SecondViewController.swift
-//  To Do List
-//
-//  Created by Rob Percival on 16/01/2015.
-//  Copyright (c) 2015 Appfish. All rights reserved.
-//
 
 import UIKit
 
@@ -38,13 +31,13 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.view.endEditing(true)
-        
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         
         item.resignFirstResponder()
         return true

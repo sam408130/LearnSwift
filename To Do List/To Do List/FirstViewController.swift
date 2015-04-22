@@ -1,10 +1,4 @@
-//
-//  FirstViewController.swift
-//  To Do List
-//
-//  Created by Rob Percival on 16/01/2015.
-//  Copyright (c) 2015 Appfish. All rights reserved.
-//
+
 
 import UIKit
 
@@ -22,7 +16,7 @@ class FirstViewController: UIViewController, UITableViewDelegate {
         
         if NSUserDefaults.standardUserDefaults().objectForKey("toDoList") != nil {
         
-            toDoList = NSUserDefaults.standardUserDefaults().objectForKey("toDoList") as [String]
+            toDoList = NSUserDefaults.standardUserDefaults().objectForKey("toDoList") as! [String]
         
         }
         
